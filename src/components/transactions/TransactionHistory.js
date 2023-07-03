@@ -1,9 +1,10 @@
-import TxListItem from './TransactionListItem';
+import PropTypes from 'prop-types';
 import {
   TxHistoryTable,
   TableHead,
   TableHeadItem,
   TableBody,
+  TableBodyItem,
 } from './TransactionHistory.styled';
 
 export default function TransactionHistory({ items }) {
@@ -20,14 +21,23 @@ export default function TransactionHistory({ items }) {
       <TableBody>
         {items.map(item => (
           <tr key={item.id}>
-            <TxListItem
-              type={item.type}
-              amount={item.amount}
-              currency={item.currency}
-            />
+            <TableBodyItem>{item.type}</TableBodyItem>
+            <TableBodyItem>{item.amount}</TableBodyItem>
+            <TableBodyItem>{item.currency}</TableBodyItem>
           </tr>
         ))}
       </TableBody>
     </TxHistoryTable>
   );
 }
+
+TransactionHistory.propTypes = {
+  items: PropTypes.array(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      amount: PropTypes.string.isRequired,
+      currency: PropTypes.string.isRequired,
+    })
+  ),
+};
